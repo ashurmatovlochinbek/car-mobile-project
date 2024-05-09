@@ -21,8 +21,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=auth_car_db
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
 
-volumes:
-  pgdata:
+#volumes:
+#  pgdata:

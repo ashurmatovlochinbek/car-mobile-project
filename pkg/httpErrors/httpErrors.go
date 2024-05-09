@@ -45,17 +45,17 @@ func NewRestError(status int, err string) RestErr {
 func ParseErrors(err error) RestErr {
 	switch {
 	case errors.Is(err, sql.ErrNoRows):
-		return NewRestError(http.StatusNotFound, fmt.Sprintf("%s, err: %v", NotFound.Error(), err))
+		return NewRestError(http.StatusNotFound, fmt.Sprintf("%s", NotFound.Error()))
 	case errors.Is(err, context.DeadlineExceeded):
-		return NewRestError(http.StatusRequestTimeout, fmt.Sprintf("%s, err: %v", RequestTimeoutError.Error(), err))
+		return NewRestError(http.StatusRequestTimeout, fmt.Sprintf("%s", RequestTimeoutError.Error()))
 	case strings.Contains(err.Error(), "SQLSTATE"):
 		return parseSqlErrors(err)
 	case strings.Contains(err.Error(), "Unmarshal"):
-		return NewRestError(http.StatusBadRequest, fmt.Sprintf("%s, err: %v", BadRequest.Error(), err))
+		return NewRestError(http.StatusBadRequest, fmt.Sprintf("%s", BadRequest.Error()))
 	case strings.Contains(err.Error(), "UUID"):
 		return NewRestError(http.StatusBadRequest, err.Error())
 	case strings.Contains(strings.ToLower(err.Error()), "token"):
-		return NewRestError(http.StatusUnauthorized, fmt.Sprintf("%s, err: %v", Unauthorized.Error(), err))
+		return NewRestError(http.StatusUnauthorized, fmt.Sprintf("%s", Unauthorized.Error()))
 	default:
 		return NewRestError(http.StatusInternalServerError, err.Error())
 	}
@@ -63,7 +63,7 @@ func ParseErrors(err error) RestErr {
 
 func parseSqlErrors(err error) RestErr {
 	if strings.Contains(err.Error(), "23505") {
-		return NewRestError(http.StatusBadRequest, fmt.Sprintf("%s, err: %v", ExistsPhoneNumberError.Error(), err))
+		return NewRestError(http.StatusBadRequest, fmt.Sprintf("%s", ExistsPhoneNumberError.Error()))
 	}
-	return NewRestError(http.StatusBadRequest, fmt.Sprintf("%s, err: %v", BadRequest.Error(), err))
+	return NewRestError(http.StatusBadRequest, fmt.Sprintf("%s", BadRequest.Error()))
 }
