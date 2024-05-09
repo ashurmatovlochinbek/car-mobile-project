@@ -1,0 +1,17 @@
+server:
+  AppVersion: 1.0.0
+  Port: 5050
+  JwtSecretKey: qRT7omj56EDaOePJR8swlkYP5kSOnj2haxovEErhepo=
+  ReadTimeout: 5
+  WriteTimeout: 5
+  CtxDefaultTimeout: 12
+  Debug: false
+
+postgres:
+  PostgresqlHost: postgresql
+  PostgresqlPort: 5432
+  PostgresqlUser: postgres
+  PostgresqlPassword: postgres
+  PostgresqlDbname: auth_car_db
+  PostgresqlSslmode: false
+  PgDriver: pgx
